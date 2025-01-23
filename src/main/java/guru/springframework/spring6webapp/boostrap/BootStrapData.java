@@ -48,7 +48,14 @@ public class BootStrapData implements CommandLineRunner {
         Book noEJBSaved = bookRepository.save(noEJB);
 
         ericSaved.getBooks().add(dddSaved);
+        dddSaved.getAuthors().add(ericSaved);
         rodSaved.getBooks().add(noEJBSaved);
+        noEJBSaved.getAuthors().add(rodSaved);
+
+
+        //Persist the Author | Book association in H2 DB
+        Author ericSavedWithBookRelation = authorRepository.save(ericSaved);
+        Author rodSavedWithBookRelation = authorRepository.save(rodSaved);
 
         Publisher publisher = new Publisher();
         publisher.setPublisherName("ENI");
@@ -61,9 +68,7 @@ public class BootStrapData implements CommandLineRunner {
         noEJBSaved.setPublisher(savedPublisher);
 
 
-        //Persist the Author | Book association in H2 DB
-        authorRepository.save(ericSaved);
-        authorRepository.save(rodSaved);
+
         //Persist the Book | Publisher association in H2 DB
         bookRepository.save(dddSaved);
         bookRepository.save(noEJBSaved);
