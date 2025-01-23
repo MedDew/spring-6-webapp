@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Srping Framework Guru</title>
 </head>
 <body>
-$END$
+
+<h1>Book List</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Publisher</th>
+    </tr>
+
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}">123</td>
+        <td th:text="${book.getTitle()}">Spring in action</td>
+        <td th:text="${book.publisher.publisherName}">Wrox</td>
+    </tr>
+</table>
+
 </body>
 </html>
