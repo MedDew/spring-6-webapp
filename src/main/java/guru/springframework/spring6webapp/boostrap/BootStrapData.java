@@ -2,8 +2,10 @@ package guru.springframework.spring6webapp.boostrap;
 
 import guru.springframework.spring6webapp.domain.Author;
 import guru.springframework.spring6webapp.domain.Book;
+import guru.springframework.spring6webapp.domain.Publisher;
 import guru.springframework.spring6webapp.repositories.AuthorRepository;
 import guru.springframework.spring6webapp.repositories.BookRepository;
+import guru.springframework.spring6webapp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +15,12 @@ public class BootStrapData implements CommandLineRunner {
     CommandLineRunner runner = (s) -> System.out.println(s);
     private AuthorRepository authorRepository;
     private BookRepository bookRepository;
+    private PublisherRepository publisherRepository;
 
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -53,5 +57,15 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("In Boostrap : ");
         System.out.println("Author count : "+authorRepository.count());
         System.out.println("Book count : "+bookRepository.count());
+
+        Publisher publisher = new Publisher();
+        publisher.setPublisherName("ENI");
+        publisher.setAddress("7 Hamant Street");
+        publisher.setCity("Calgary");
+        publisher.setZip("T2P");
+
+        Publisher savedPublisher = publisherRepository.save(publisher);
+
+        System.out.println("Publisher count : "+publisherRepository.count());
     }
 }
