@@ -50,22 +50,27 @@ public class BootStrapData implements CommandLineRunner {
         ericSaved.getBooks().add(dddSaved);
         rodSaved.getBooks().add(noEJBSaved);
 
-        //Persist the association in H2 DB
-        authorRepository.save(ericSaved);
-        authorRepository.save(rodSaved);
-
-        System.out.println("In Boostrap : ");
-        System.out.println("Author count : "+authorRepository.count());
-        System.out.println("Book count : "+bookRepository.count());
-
         Publisher publisher = new Publisher();
         publisher.setPublisherName("ENI");
         publisher.setAddress("7 Hamant Street");
         publisher.setCity("Calgary");
         publisher.setZip("T2P");
-
         Publisher savedPublisher = publisherRepository.save(publisher);
 
+        dddSaved.setPublisher(savedPublisher);
+        noEJBSaved.setPublisher(savedPublisher);
+
+
+        //Persist the Author | Book association in H2 DB
+        authorRepository.save(ericSaved);
+        authorRepository.save(rodSaved);
+        //Persist the Book | Publisher association in H2 DB
+        bookRepository.save(dddSaved);
+        bookRepository.save(noEJBSaved);
+
+        System.out.println("In Boostrap : ");
+        System.out.println("Author count : "+authorRepository.count());
+        System.out.println("Book count : "+bookRepository.count());
         System.out.println("Publisher count : "+publisherRepository.count());
     }
 }
